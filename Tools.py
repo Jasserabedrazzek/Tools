@@ -2,8 +2,7 @@ import streamlit as st
 from translate import Translator
 from pytube import YouTube
 import os
-import tkinter as tk
-from tkinter import filedialog
+
 
 root = tk.Tk()
 
@@ -39,23 +38,18 @@ st.write(translation)
 tab1, tab2, tab3, tab4 = st.tabs([tr_d, tr_sp, tr_cs, tr_tst])
 with tab1:
 	link = st.text_input(translator.translate("Enter the YouTube video URL: "))
-	go = st.button("open")
-	if go:
-		root.withdraw()
-		folder_path = filedialog.askdirectory()
-		root.deiconify()
 	start = st.button(translator.translate("Download"))
 	if start:
 		if link != "" and folder_path != "":
 			youtubeObject = YouTube(link)
 			stream = youtubeObject.streams.get_highest_resolution()
 			try:
-				stream.download(folder_path)
+				stream.download('/Download')
 			except:
 				st.error(translator.translate("An error has occurred"))
 			st.success(translator.translate("Download is completed successfully"))
 		else:
 			st.error("Please provide a YouTube video URL and folder path")
 
-root.mainloop()
+
 

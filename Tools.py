@@ -41,7 +41,6 @@ with tab1:
 	start = st.button(translator.translate("Download"))
 	oP = st.button("open")
 	if oP:
-		root = Tk()
 		root.withdraw()
 		folder_path = filedialog.askdirectory()
 		st.write(folder_path)

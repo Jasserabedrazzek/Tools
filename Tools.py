@@ -4,8 +4,6 @@ from pytube import YouTube
 import os
 
 
-root = tk.Tk()
-
 st.set_page_config(
     page_title="Tools For You",
     page_icon=None,

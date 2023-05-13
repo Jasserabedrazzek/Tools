@@ -42,7 +42,7 @@ with tab1:
 			youtubeObject = YouTube(link)
 			stream = youtubeObject.streams.get_highest_resolution()
 			try:
-				stream.download('/Download')
+				stream.download()
 			except:
 				st.error(translator.translate("An error has occurred"))
 			st.success(translator.translate("Download is completed successfully"))

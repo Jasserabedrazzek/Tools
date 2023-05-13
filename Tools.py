@@ -39,9 +39,9 @@ with tab1:
 	if start:
 		if link != "":
 			youtubeObject = YouTube(link)
-			stream = youtubeObject.streams.get_highest_resolution("720px")
+			stream = youtubeObject.streams.get_highest_resolution()
 			try:
-				stream.download(r'C:\Users\Jasser\Downloads')
+				stream.download()
 			except:
 				st.error(translator.translate( "An error has occurred"))
 			st.success(translator.translate("Download is completed successfully"))

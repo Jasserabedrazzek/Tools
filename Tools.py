@@ -38,7 +38,7 @@ with tab1:
 	link = st.text_input(translator.translate("Enter the YouTube video URL: "))
 	start = st.button(translator.translate("Download"))
 	if start:
-		if link != "" and folder_path != "":
+		if link != "":
 			youtubeObject = YouTube(link)
 			stream = youtubeObject.streams.get_highest_resolution()
 			try:

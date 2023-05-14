@@ -26,6 +26,8 @@ sp = "Convert text to speech."
 cs = "Convert speech to text."
 tst = "Test the Wi-Fi connection."
 translation = translator.translate(mot)
+if target_lang.lower() != "english":
+    translation = translator.translate(mot)
 tr_d = translator.translate(dow)
 tr_sp = translator.translate(sp)
 tr_cs = translator.translate(cs)
@@ -33,17 +35,12 @@ tr_tst = translator.translate(tst)
 st.write(translation)
 tab1, tab2, tab3, tab4 = st.tabs([tr_d, tr_sp, tr_cs, tr_tst])
 with tab1:
-    link = st.text_input(translator.translate("Enter the YouTube video URL: "))
-    start = st.button(translator.translate("Download"))
-
-    if link and start:
-        try:
-            youtubeObject = YouTube(link)
-            stream = youtubeObject.streams.get_highest_resolution()
-            stream.download()
-            st.success(translator.translate("Download completed successfully!"))
-        except Exception as e:
-            st.error(translator.translate("An error has occurred: ") + str(e))
-    elif link or start:
-        st.error("Please provide both a YouTube video URL and click the 'Download' button.")
+    link = st.text_input("Enter the YouTube video URL: ")
+    if link:
+        youtubeObject = YouTube(link)
+        stream = youtubeObject.streams.get_highest_resolution()
+        video_title = youtubeObject.title
+        st.download_button("Download", data=stream.download(), file_name=video_title, mime="video/mp4")
+    else:
+        st.warning("Please provide a YouTube video URL.")
 

@@ -1,10 +1,6 @@
 import streamlit as st
 from translate import Translator
 from pytube import YouTube
-import os
-from tkinter import Tk, filedialog
-
-root = Tk()
 
 st.set_page_config(
     page_title="Tools For You",
@@ -37,25 +33,17 @@ tr_tst = translator.translate(tst)
 st.write(translation)
 tab1, tab2, tab3, tab4 = st.tabs([tr_d, tr_sp, tr_cs, tr_tst])
 with tab1:
-	link = st.text_input(translator.translate("Enter the YouTube video URL: "))
-	start = st.button(translator.translate("Download"))
-	oP = st.button("open")
-	if oP:
-		root.withdraw()
-		folder_path = filedialog.askdirectory()
-		st.write(folder_path)
-		
-	if start:
-		if link != "" and folder_path != "":
-			youtubeObject = YouTube(link)
-			stream = youtubeObject.streams.get_highest_resolution()
-			try:
-				stream.download('/Download')
-			except:
-				st.error(translator.translate("An error has occurred"))
-			st.success(translator.translate("Download is completed successfully"))
-		else:
-			st.error("Please provide a YouTube video URL and folder path")
-root.mainloop()
+    link = st.text_input(translator.translate("Enter the YouTube video URL: "))
+    start = st.button(translator.translate("Download"))
 
+    if link and start:
+        try:
+            youtubeObject = YouTube(link)
+            stream = youtubeObject.streams.get_highest_resolution()
+            stream.download()
+            st.success(translator.translate("Download completed successfully!"))
+        except Exception as e:
+            st.error(translator.translate("An error has occurred: ") + str(e))
+    elif link or start:
+        st.error("Please provide both a YouTube video URL and click the 'Download' button.")
 
